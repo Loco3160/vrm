@@ -83,6 +83,30 @@ Add to your Claude Desktop config:
 
 The server resolves `.env` from the project directory, so the token does not need to be copied into the MCP client configuration.
 
+## Battery and Generator Status CLI
+
+Build the project, then run the status command:
+
+```bash
+npm run build
+npm run status
+```
+
+The CLI auto-detects your installation and reports battery state of charge plus generator output. Generator output strictly above 8,000 W is classified as `HEALTHY / ON`; output from 1–8,000 W is `ON / BELOW HEALTHY OUTPUT`, and zero output is `OFF`.
+
+For scripts and monitoring:
+
+```bash
+# Machine-readable output
+npm run status:json
+
+# Exit with status 1 unless the generator is healthy/on
+npm run status -- --check
+
+# Override the site or threshold
+npm run status -- --site-id 123456 --threshold-watts 8000
+```
+
 ## Available Tools (41 Total)
 
 ### Core Monitoring (8 tools)
