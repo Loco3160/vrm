@@ -3,6 +3,7 @@ dist/
 *.log
 .env
 .env.local
+config/generator-settings.json
 .DS_Store
 coverage/
 .vscode/

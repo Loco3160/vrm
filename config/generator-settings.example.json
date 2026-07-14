@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "site": {
+    "id": null,
+    "name": "Your installation"
+  },
+  "source": "manual",
+  "updatedAt": null,
+  "generator": {
+    "soc": {
+      "enabled": null,
+      "startBelowPercent": null,
+      "stopAbovePercent": null,
+      "quietHoursStartBelowPercent": null,
+      "quietHoursStopAbovePercent": null,
+      "startDelaySeconds": null,
+      "stopDelaySeconds": null
+    },
+    "acLoad": {
+      "enabled": null,
+      "startAboveWatts": null,
+      "stopBelowWatts": null,
+      "startDelaySeconds": null,
+      "stopDelaySeconds": null
+    },
+    "batteryCurrent": {
+      "enabled": null,
+      "startAboveAmps": null,
+      "stopBelowAmps": null,
+      "startDelaySeconds": null,
+      "stopDelaySeconds": null
+    },
+    "batteryVoltage": {
+      "enabled": null,
+      "startBelowVolts": null,
+      "stopAboveVolts": null,
+      "startDelaySeconds": null,
+      "stopDelaySeconds": null
+    },
+    "inverterHighTemperature": {
+      "enabled": null,
+      "startDelaySeconds": null,
+      "stopDelaySeconds": null
+    },
+    "inverterOverload": {
+      "enabled": null,
+      "startDelaySeconds": null,
+      "stopDelaySeconds": null
+    },
+    "quietHours": {
+      "enabled": null,
+      "startTime": null,
+      "endTime": null
+    },
+    "minimumRuntimeSeconds": null,
+    "warmUpSeconds": null,
+    "coolDownSeconds": null,
+    "periodicRun": {
+      "enabled": null,
+      "intervalDays": null,
+      "startTime": null,
+      "runDurationMinutes": null,
+      "skipIfRunWithinHours": null
+    },
+    "notes": []
+  }
+}

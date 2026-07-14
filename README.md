@@ -107,6 +107,22 @@ npm run status -- --check
 npm run status -- --site-id 123456 --threshold-watts 8000
 ```
 
+### Stored generator settings
+
+Generator automation settings can be recorded locally in `config/generator-settings.json`. This file is ignored by Git; the repository includes `config/generator-settings.example.json` as a safe template.
+
+```bash
+# Display the stored settings
+npm run generator-settings
+
+# Validate or output them as JSON
+npm run generator-settings -- --validate
+npm run generator-settings -- --json
+
+# Show live status alongside the stored settings
+npm run status -- --settings
+```
+
 ## Available Tools (41 Total)
 
 ### Core Monitoring (8 tools)

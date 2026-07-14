@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import dotenv from "dotenv";
+import { formatGeneratorSettings, loadGeneratorSettings } from "./generator-settings.js";
 import { VRMClient } from "./vrm-client.js";
 import {
   buildEnergyStatus,
@@ -11,6 +12,7 @@ interface CliOptions {
   check: boolean;
   help: boolean;
   json: boolean;
+  settings: boolean;
   siteId?: number;
   thresholdWatts: number;
 }
@@ -33,6 +35,7 @@ export function parseArgs(args: string[]): CliOptions {
     check: false,
     help: false,
     json: false,
+    settings: false,
     thresholdWatts: DEFAULT_GENERATOR_HEALTHY_WATTS
   };
 
@@ -48,6 +51,9 @@ export function parseArgs(args: string[]): CliOptions {
         break;
       case "--json":
         options.json = true;
+        break;
+      case "--settings":
+        options.settings = true;
         break;
       case "--site-id":
         options.siteId = parseNumber(args[index + 1], "--site-id");
@@ -74,6 +80,7 @@ Usage:
 
 Options:
   --json                    Output machine-readable JSON
+  --settings                Include locally stored generator settings
   --check                   Exit 1 unless generator output is above the threshold
   --site-id <id>            Use a specific VRM site (auto-detected by default)
   --threshold-watts <watts> Healthy/on threshold (default: 8000)
@@ -157,10 +164,14 @@ async function main(): Promise<void> {
   }
 
   const status = buildEnergyStatus(response.data, options.thresholdWatts);
+  const storedSettings = options.settings ? await loadGeneratorSettings() : undefined;
   if (options.json) {
-    console.log(JSON.stringify({ site, ...status }, null, 2));
+    console.log(JSON.stringify({ site, ...status, storedSettings }, null, 2));
   } else {
     printHuman(site, status);
+    if (storedSettings) {
+      console.log(`\n${formatGeneratorSettings(storedSettings)}`);
+    }
   }
 
   if (options.check && status.generator.healthy !== true) {
