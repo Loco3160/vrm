@@ -2,6 +2,8 @@
 
 A Model Context Protocol (MCP) server that provides read-only access to Victron VRM data.
 
+This repository is based on [gimi-q/victron-vrm-mcp](https://github.com/gimi-q/victron-vrm-mcp) and is configured for `Loco3160/vrm`.
+
 ## Features
 
 - Read-only access to Victron VRM API v2
@@ -26,6 +28,7 @@ A Model Context Protocol (MCP) server that provides read-only access to Victron 
 ```bash
 npm install
 npm run build
+cp .env.example .env
 ```
 
 ## Configuration
@@ -36,13 +39,15 @@ Set the following environment variables:
 - `VRM_BASE_URL` (optional): Default is `https://vrmapi.victronenergy.com/v2`
 - `VRM_TOKEN_KIND` (optional): Either `Token` (default) or `Bearer`
 
-You can set these via shell env or a local `.env` file (auto‑loaded via `dotenv`). Example `.env`:
+This repository already includes an ignored local `.env` with empty token placeholder and a tracked `.env.example` template. Add your token to `.env`:
 
 ```
-VRM_TOKEN=your-token-here
+VRM_TOKEN=paste-your-personal-access-token-here
 VRM_BASE_URL=https://vrmapi.victronenergy.com/v2
 VRM_TOKEN_KIND=Token
 ```
+
+Do not commit `.env`; it is excluded by `.gitignore`.
 
 ### Getting a VRM Token
 
@@ -56,11 +61,8 @@ VRM_TOKEN_KIND=Token
 ### As MCP Server (stdio)
 
 ```bash
-# Option A: env inline
-VRM_TOKEN=your-token-here npm start
-
-# Option B: use .env (recommended)
-echo "VRM_TOKEN=your-token-here" > .env
+# After adding your token to .env
+npm run build
 npm start
 ```
 
@@ -73,14 +75,13 @@ Add to your Claude Desktop config:
   "mcpServers": {
     "vrm": {
       "command": "node",
-      "args": ["/path/to/victron_vrm_mcp/dist/index.js"],
-      "env": {
-        "VRM_TOKEN": "your-token-here" // or omit if using .env alongside the binary
-      }
+      "args": ["/Users/calumsmeaton/Documents/vrm 2/dist/index.js"]
     }
   }
 }
 ```
+
+The server resolves `.env` from the project directory, so the token does not need to be copied into the MCP client configuration.
 
 ## Available Tools (41 Total)
 

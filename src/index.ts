@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-// Only load .env file if VRM_TOKEN is not already set (for local development)
+// Only load the project .env file if VRM_TOKEN is not already set.
+// Resolving it relative to this module lets MCP clients launch the server from
+// any working directory.
 if (!process.env.VRM_TOKEN) {
   // Temporarily silence all output during dotenv loading
   const originalStdoutWrite = process.stdout.write;
@@ -15,7 +17,7 @@ if (!process.env.VRM_TOKEN) {
   
   try {
     const dotenv = await import("dotenv");
-    dotenv.config();
+    dotenv.config({ path: new URL("../.env", import.meta.url) });
   } finally {
     // Restore all output functions
     process.stdout.write = originalStdoutWrite;

@@ -33,12 +33,12 @@
   "description": "A Model Context Protocol (MCP) server providing read-only access to Victron VRM API v2 with all 41 GET endpoints implemented.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gimi-q/victron-vrm-mcp.git"
+    "url": "git+https://github.com/Loco3160/vrm.git"
   },
   "bugs": {
-    "url": "https://github.com/gimi-q/victron-vrm-mcp/issues"
+    "url": "https://github.com/Loco3160/vrm/issues"
   },
-  "homepage": "https://github.com/gimi-q/victron-vrm-mcp#readme",
+  "homepage": "https://github.com/Loco3160/vrm#readme",
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/node": "^24.3.0",
@@ -49,7 +49,7 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.17.3",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "dotenv": "^17.2.1",
     "zod": "^3.25.76"
   },
