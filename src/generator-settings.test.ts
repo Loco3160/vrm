@@ -3,7 +3,7 @@ import { formatGeneratorSettings, generatorSettingsSchema } from "./generator-se
 
 const validSettings = {
   schemaVersion: 1 as const,
-  site: { id: 123456, name: "Test Site" },
+  site: { id: 123456, name: "Test Site", timeZone: "Europe/London" },
   source: "manual" as const,
   updatedAt: null,
   generator: {

@@ -123,6 +123,23 @@ npm run generator-settings -- --json
 npm run status -- --settings
 ```
 
+### Generator expectation monitor
+
+The monitor applies the stored quiet-hours schedule, SOC hysteresis, startup grace, and cooldown grace to the live VRM data. It remembers the expected state and transition time between checks.
+
+```bash
+# Human-readable result
+npm run monitor
+
+# JSON output suitable for OpenClaw or another scheduler
+npm run monitor -- --json
+
+# Exit 1 when the generator should be on but is off or below 8 kW
+npm run monitor -- --check
+```
+
+The schedule and SOC thresholds come from the ignored local settings file. The monitor's hysteresis state is stored in ignored file `config/generator-monitor-state.json`.
+
 ## Available Tools (41 Total)
 
 ### Core Monitoring (8 tools)

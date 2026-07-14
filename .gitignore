@@ -4,6 +4,7 @@ dist/
 .env
 .env.local
 config/generator-settings.json
+config/generator-monitor-state.json
 .DS_Store
 coverage/
 .vscode/

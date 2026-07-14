@@ -6,6 +6,7 @@
   "bin": {
     "vrm-generator-settings": "./dist/generator-settings-cli.js",
     "vrm-mcp": "./dist/index.js",
+    "vrm-monitor": "./dist/generator-monitor-cli.js",
     "vrm-status": "./dist/status-cli.js"
   },
   "directories": {
@@ -15,6 +16,7 @@
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
     "generator-settings": "node dist/generator-settings-cli.js",
+    "monitor": "node dist/generator-monitor-cli.js",
     "start": "node dist/index.js",
     "status": "node dist/status-cli.js",
     "status:json": "node dist/status-cli.js --json",

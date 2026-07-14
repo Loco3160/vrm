@@ -51,4 +51,29 @@ describe("buildEnergyStatus", () => {
     expect(status.battery.socPercent).toBe(74.5);
     expect(status.generator.status).toBe("UNKNOWN");
   });
+
+  it("does not treat stale last-known power as running when the run reason is stopped", () => {
+    const status = buildEnergyStatus([
+      { code: "bs", rawValue: 46, timestamp: 2_000 },
+      { code: "gaRC", rawValue: 0, formattedValue: "Stopped", timestamp: 2_000 },
+      { code: "gs1", rawValue: 9_942, timestamp: 1_000 }
+    ]);
+
+    expect(status.generator.commandedOn).toBe(false);
+    expect(status.generator.outputFresh).toBe(false);
+    expect(status.generator.outputWatts).toBe(0);
+    expect(status.generator.status).toBe("OFF");
+  });
+
+  it("reports unknown output when the generator is requested but power is stale", () => {
+    const status = buildEnergyStatus([
+      { code: "bs", rawValue: 30, timestamp: 2_000 },
+      { code: "gaRC", rawValue: 4, formattedValue: "State of Charge", timestamp: 2_000 },
+      { code: "gs1", rawValue: 9_000, timestamp: 1_000 }
+    ]);
+
+    expect(status.generator.commandedOn).toBe(true);
+    expect(status.generator.outputWatts).toBeNull();
+    expect(status.generator.status).toBe("UNKNOWN");
+  });
 });

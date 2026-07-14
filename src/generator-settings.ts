@@ -17,7 +17,8 @@ export const generatorSettingsSchema = z.object({
   schemaVersion: z.literal(1),
   site: z.object({
     id: z.number().int().positive().nullable(),
-    name: z.string().min(1)
+    name: z.string().min(1),
+    timeZone: z.string().min(1)
   }).strict(),
   source: z.enum(["manual", "mqtt"]),
   updatedAt: z.string().datetime().nullable(),
@@ -118,6 +119,7 @@ export function formatGeneratorSettings(settings: GeneratorSettings): string {
     : "Not set";
   const lines = [
     `${settings.site.name} stored generator settings`,
+    `Timezone:                ${settings.site.timeZone}`,
     `Source:                  ${settings.source}`,
     `Updated:                 ${settings.updatedAt ?? "Not set"}`,
     "",
