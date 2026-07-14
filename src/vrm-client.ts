@@ -191,16 +191,23 @@ export class VRMClient {
     
     if (!idUser) {
       const userResponse = await this.getUserMe();
-      if (!userResponse.ok || !userResponse.data?.idUser) {
+      const userData = userResponse.data;
+      const discoveredIdUser = userData?.idUser
+        ?? userData?.id
+        ?? userData?.user?.idUser
+        ?? userData?.user?.id;
+
+      if (!userResponse.ok || !discoveredIdUser) {
         return {
           ...userResponse,
+          ok: false,
           error: {
             code: "user_fetch_failed",
             message: "Failed to fetch user ID"
           }
         };
       }
-      idUser = userResponse.data.idUser;
+      idUser = discoveredIdUser;
     }
     
     const queryParams = new URLSearchParams();

@@ -121,6 +121,32 @@ describe('VRMClient', () => {
       expect(result.data).toEqual([{ id: 1, name: 'Site 1' }]);
       expect(mockFetch).toHaveBeenCalledTimes(2);
     });
+
+    it('should fetch the user ID from the current nested VRM response', async () => {
+      const mockUserData = { success: true, user: { id: 24680 } };
+      const mockInstallations = { records: [{ idSite: 1, name: 'Site 1' }] };
+
+      mockFetch
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          json: async () => mockUserData
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          json: async () => mockInstallations
+        });
+
+      const result = await client.listInstallations({});
+
+      expect(result.ok).toBe(true);
+      expect(result.data).toEqual([{ idSite: 1, name: 'Site 1' }]);
+      expect(mockFetch).toHaveBeenLastCalledWith(
+        expect.stringContaining('/users/24680/installations'),
+        expect.any(Object)
+      );
+    });
     
     it('should use provided idUser', async () => {
       const mockInstallations = { records: [{ id: 1, name: 'Site 1' }] };
